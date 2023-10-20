@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
-from models.dummies import *
+from dummies import *
 import joblib
 
-model=joblib.load('models\model.h5')
-#scaler=joblib.load('models\scaler.h5')
+model=joblib.load('model.h5')
+scaler=joblib.load('scaler.h5')
 
 
 st.title('Bikes Renting Project')
@@ -32,9 +32,9 @@ pod=pod_dummies[pod_sele]
 data=[temp,humidity,hour,is_rush_hour,month]
 data=data+season+weather+week_day+pod
 
-#data_scaled=scaler.transform([data])
+data_scaled=scaler.transform([data])
 
-result=model.predict([data])
+result=model.predict(data_scaled)
 
 st.write(result)
 
